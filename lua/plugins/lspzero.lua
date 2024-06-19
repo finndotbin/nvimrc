@@ -32,14 +32,27 @@ return {
     })
 
     local lspconfig = require("lspconfig")
+
     lspconfig.gleam.setup({})
+
+    local configs = {
+      lua_ls = {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" },
+            },
+          },
+        },
+      },
+    }
 
     require("mason").setup({})
     require("mason-lspconfig").setup({
       ensure_installed = { "rust_analyzer", "clangd", "lua_ls" },
       handlers = {
         function(server_name)
-          require("lspconfig")[server_name].setup({})
+          lspconfig[server_name].setup(configs[server_name] or {})
         end,
       },
     })
@@ -53,22 +66,9 @@ return {
       mapping = {
         ["<C-y>"] = cmp.mapping.confirm({select = false}),
         ["<C-e>"] = cmp.mapping.abort(),
-        ["<Up>"] = cmp.mapping.select_prev_item({behavior = "select"}),
-        ["<Down>"] = cmp.mapping.select_next_item({behavior = "select"}),
-        ["<C-p>"] = cmp.mapping(function()
-          if cmp.visible() then
-            cmp.select_prev_item({behavior = "insert"})
-          else
-            cmp.complete()
-          end
-        end),
-        ["<C-n>"] = cmp.mapping(function()
-          if cmp.visible() then
-            cmp.select_next_item({behavior = "insert"})
-          else
-            cmp.complete()
-          end
-        end),
+        ["<C-p>"] = cmp.mapping.select_prev_item({behavior = "select"}),
+        ["<C-n>"] = cmp.mapping.select_next_item({behavior = "select"}),
+        ["<C-Space>"] = cmp.mapping(function() cmp.complete() end)
       },
       snippet = {
         expand = function(args)

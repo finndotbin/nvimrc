@@ -13,7 +13,7 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>")
 
 vim.keymap.set("n", "<leader>o", "<C-w><C-o>")
 
-vim.keymap.set("n", "<leader>/", "<cmd>noh")
+vim.keymap.set("n", "<leader>/", "<Cmd>noh<CR>")
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 2

@@ -2,12 +2,12 @@ return {
   "VonHeikemen/lsp-zero.nvim",
   branch = "v3.x",
   dependencies = {
-    {"williamboman/mason.nvim"},
-    {"williamboman/mason-lspconfig.nvim"},
-    {"neovim/nvim-lspconfig"},
-    {"hrsh7th/cmp-nvim-lsp"},
-    {"hrsh7th/nvim-cmp"},
-    {"L3MON4D3/LuaSnip"},
+    { "williamboman/mason.nvim" },
+    { "williamboman/mason-lspconfig.nvim" },
+    { "neovim/nvim-lspconfig" },
+    { "hrsh7th/cmp-nvim-lsp" },
+    { "hrsh7th/nvim-cmp" },
+    { "L3MON4D3/LuaSnip" },
   },
   config = function()
     local lsp_zero = require("lsp-zero")
@@ -19,6 +19,8 @@ return {
         buffer = bufnr,
         preserve_mappings = false,
       })
+
+      lsp_zero.buffer_autoformat()
     end)
 
     lsp_zero.format_on_save({
@@ -27,7 +29,7 @@ return {
         timeout_ms = 10000,
       },
       servers = {
-        ["rust_analyzer"] = {"rust"},
+        ["rust_analyzer"] = { "rust" },
       },
     })
 
@@ -61,14 +63,15 @@ return {
 
     cmp.setup({
       sources = {
-        {name = "nvim_lsp"},
+        { name = "nvim_lsp" },
       },
       mapping = {
-        ["<C-y>"] = cmp.mapping.confirm({select = false}),
+        ["<C-y>"] = cmp.mapping.confirm({ select = false }),
         ["<C-e>"] = cmp.mapping.abort(),
-        ["<C-p>"] = cmp.mapping.select_prev_item({behavior = "select"}),
-        ["<C-n>"] = cmp.mapping.select_next_item({behavior = "select"}),
-        ["<C-Space>"] = cmp.mapping(function() cmp.complete() end)
+        ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
+        ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" }),
+        -- Doesn't work for some reason but who cares
+        ["<C-Space>"] = cmp.mapping(cmp.complete())
       },
       snippet = {
         expand = function(args)

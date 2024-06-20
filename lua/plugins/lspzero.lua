@@ -23,16 +23,6 @@ return {
       lsp_zero.buffer_autoformat()
     end)
 
-    lsp_zero.format_on_save({
-      format_opts = {
-        async = false,
-        timeout_ms = 10000,
-      },
-      servers = {
-        ["rust_analyzer"] = { "rust" },
-      },
-    })
-
     local lspconfig = require("lspconfig")
 
     lspconfig.gleam.setup({})
@@ -70,8 +60,6 @@ return {
         ["<C-e>"] = cmp.mapping.abort(),
         ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
         ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" }),
-        -- Doesn't work for some reason but who cares
-        ["<C-Space>"] = cmp.mapping(cmp.complete())
       },
       snippet = {
         expand = function(args)

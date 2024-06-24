@@ -21,6 +21,8 @@ vim.opt.relativenumber = true
 
 vim.opt.showmode = true
 
+vim.opt.scrolloff = 12
+
 vim.opt.clipboard = "unnamed"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
